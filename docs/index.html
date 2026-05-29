@@ -1,490 +1,759 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Focalboard - Trabajo Final Pruebas de Software</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Focalboard - Pruebas de Software</title>
 
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+:root{
+  --bg:#0d1117;
+  --panel:#161b22;
+  --panel2:#1f2630;
+  --border:#30363d;
+  --text:#c9d1d9;
+  --muted:#8b949e;
+  --blue:#58a6ff;
+  --cyan:#39c5bb;
+  --green:#3fb950;
+  --yellow:#d29922;
 }
 
-:root{
-    --bg:#0d1117;
-    --card:#161b22;
-    --border:#30363d;
-    --blue:#58a6ff;
-    --green:#39c5bb;
-    --text:#c9d1d9;
-    --muted:#8b949e;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-    background:var(--bg);
-    color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-    line-height:1.6;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.7;
 }
 
-.container{
-    max-width:1200px;
-    margin:auto;
-    padding:0 25px;
+a{
+  color:var(--blue);
+  text-decoration:none;
 }
-
-
-/* HEADER */
 
 header{
-    border-bottom:1px solid var(--border);
-    background:#0d1117dd;
-    backdrop-filter:blur(10px);
-    position:sticky;
-    top:0;
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:1000;
+  background:rgba(13,17,23,.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--border);
 }
 
-nav{
-    height:70px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+.nav{
+  max-width:1300px;
+  margin:auto;
+  padding:16px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
 .logo{
-    font-size:22px;
-    color:white;
-    font-weight:700;
+  font-size:22px;
+  font-weight:700;
+  color:#fff;
 }
 
 .logo span{
-    color:var(--blue);
+  color:var(--blue);
 }
 
-.links a{
-    margin-left:20px;
-    color:var(--muted);
-    text-decoration:none;
+.nav-links a{
+  margin-left:22px;
+  color:var(--muted);
+  font-size:14px;
 }
 
-.links a:hover{
-    color:var(--blue);
+.nav-links a:hover{
+  color:var(--blue);
 }
 
+.layout{
+  display:flex;
+  max-width:1400px;
+  margin:0 auto;
+  padding-top:78px;
+}
 
-/* HERO */
+.sidebar{
+  width:280px;
+  position:sticky;
+  top:78px;
+  height:calc(100vh - 78px);
+  padding:28px 22px;
+  border-right:1px solid var(--border);
+  overflow:auto;
+}
+
+.sidebar h3{
+  font-size:14px;
+  color:#fff;
+  margin-bottom:14px;
+}
+
+.sidebar a{
+  display:block;
+  color:var(--muted);
+  padding:8px 0;
+  font-size:14px;
+}
+
+.sidebar a:hover{
+  color:var(--blue);
+}
+
+main{
+  flex:1;
+  padding:0 38px 80px;
+}
+
+section{
+  padding:70px 0;
+  border-bottom:1px solid var(--border);
+}
 
 .hero{
-    text-align:center;
-    padding:90px 20px;
+  padding-top:95px;
+  text-align:center;
 }
 
-.hero h1{
-    font-size:50px;
+.badge{
+  display:inline-block;
+  padding:8px 14px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  color:var(--cyan);
+  background:rgba(57,197,187,.08);
+  margin-bottom:22px;
+  font-size:14px;
 }
 
+h1{
+  font-size:54px;
+  line-height:1.1;
+  margin-bottom:20px;
+  color:#fff;
+}
 
-.hero span{
-    color:var(--blue);
+h1 span{
+  color:var(--blue);
 }
 
 .hero p{
-    max-width:750px;
-    margin:20px auto;
-    color:var(--muted);
-    font-size:18px;
+  max-width:780px;
+  margin:0 auto;
+  color:var(--muted);
+  font-size:18px;
 }
-
-
-/* SECTIONS */
-
-section{
-    padding:50px 0;
-}
-
 
 h2{
-    text-align:center;
-    font-size:34px;
-    margin-bottom:35px;
+  color:#fff;
+  font-size:34px;
+  margin-bottom:22px;
 }
 
+h3{
+  color:var(--blue);
+  margin-bottom:12px;
+}
+
+p{
+  margin-bottom:16px;
+  color:var(--text);
+}
+
+.muted{
+  color:var(--muted);
+}
 
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:25px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+  margin-top:28px;
 }
 
-
 .card{
-    background:var(--card);
-    border:1px solid var(--border);
-    padding:30px;
-    border-radius:14px;
-    transition:.3s;
+  background:linear-gradient(180deg,var(--panel),#111820);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:26px;
+  transition:.25s;
 }
 
 .card:hover{
-    border-color:var(--blue);
-    transform:translateY(-5px);
+  transform:translateY(-4px);
+  border-color:var(--blue);
+  box-shadow:0 12px 28px rgba(88,166,255,.08);
 }
-
 
 .card h3{
-    color:var(--blue);
-    margin-bottom:15px;
+  font-size:20px;
 }
 
-
-.card p,li{
-    color:var(--muted);
+.card p, .card li{
+  color:var(--muted);
 }
-
 
 ul{
-    padding-left:20px;
+  margin-left:20px;
+  margin-top:10px;
 }
 
-
-/* BUTTONS */
-
-
-.button{
-    display:inline-block;
-    margin-top:20px;
-    padding:12px 20px;
-    border-radius:8px;
-    background:var(--blue);
-    color:white;
-    text-decoration:none;
+li{
+  margin-bottom:8px;
 }
 
+.table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:24px;
+  overflow:hidden;
+  border-radius:12px;
+}
+
+.table th,
+.table td{
+  border:1px solid var(--border);
+  padding:14px;
+  text-align:left;
+}
+
+.table th{
+  background:var(--panel2);
+  color:#fff;
+}
+
+.table td{
+  color:var(--muted);
+}
+
+.callout{
+  border-left:4px solid var(--blue);
+  background:rgba(88,166,255,.08);
+  padding:18px 20px;
+  border-radius:10px;
+  margin:24px 0;
+}
+
+.button-group{
+  margin-top:28px;
+}
+
+.btn{
+  display:inline-block;
+  padding:12px 18px;
+  border-radius:10px;
+  margin:6px;
+  background:var(--blue);
+  color:#fff;
+  font-weight:600;
+}
+
+.btn.secondary{
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text);
+}
+
+.tag{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  margin:5px;
+  color:var(--muted);
+  font-size:13px;
+}
 
 footer{
-    margin-top:70px;
-    padding:40px;
-    text-align:center;
-    background:var(--card);
-    color:var(--muted);
+  text-align:center;
+  padding:40px;
+  color:var(--muted);
+  background:var(--panel);
+  border-top:1px solid var(--border);
 }
 
+@media(max-width:900px){
+  .layout{
+    display:block;
+  }
 
+  .sidebar{
+    display:none;
+  }
+
+  main{
+    padding:0 22px 60px;
+  }
+
+  h1{
+    font-size:38px;
+  }
+
+  .nav{
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .nav-links a{
+    margin:0 8px;
+  }
+}
 </style>
-
 </head>
-
 
 <body>
 
-
 <header>
-
-<div class="container">
-
-<nav>
-
-<div class="logo">
-Focal<span>board</span>
-</div>
-
-
-<div class="links">
-
-<a href="#producto">Producto</a>
-
-<a href="#testing">Testing</a>
-
-<a href="#wiki">Wiki</a>
-
-
-</div>
-
-
-</nav>
-
-
-</div>
-
+  <div class="nav">
+    <div class="logo">Focal<span>board</span></div>
+    <div class="nav-links">
+      <a href="#producto">Producto</a>
+      <a href="#wiki">Wiki</a>
+      <a href="#testing">Testing</a>
+      <a href="#evidencias">Hito 1</a>
+    </div>
+  </div>
 </header>
 
+<div class="layout">
 
+<aside class="sidebar">
+  <h3>Navegación</h3>
+  <a href="#inicio">Inicio</a>
+  <a href="#producto">Producto seleccionado</a>
+  <a href="#funcionalidades">Funcionalidades</a>
+  <a href="#arquitectura">Arquitectura</a>
+  <a href="#wiki">Documentación Wiki</a>
+  <a href="#testing">Plan de pruebas unitarias</a>
+  <a href="#alcance">Alcance de pruebas</a>
+  <a href="#modulos">Módulos seleccionados</a>
+  <a href="#herramientas">Herramientas</a>
+  <a href="#estrategia">Estrategia</a>
+  <a href="#responsables">Responsables</a>
+  <a href="#riesgos">Riesgos</a>
+  <a href="#evidencias">Evidencias Hito 1</a>
+</aside>
 
-<section class="hero">
+<main>
 
-<h1>Trabajo Final <span>Pruebas de Software</span></h1>
+<section id="inicio" class="hero">
+  <span class="badge">Primer Hito · Pruebas de Software</span>
+  <h1>Presentación del producto <span>Focalboard</span></h1>
+  <p>
+    Documentación del producto de software seleccionado y planificación inicial
+    de pruebas unitarias para el trabajo final del curso de Pruebas de Software.
+  </p>
 
-<p>
-Planificación de pruebas unitarias sobre Focalboard,
-una plataforma open source para gestión colaborativa
-de proyectos mediante tableros y tarjetas.
-</p>
-
-
+  <div class="button-group">
+    <a class="btn" href="#producto">Ver producto</a>
+    <a class="btn secondary" href="#wiki">Ver documentación</a>
+  </div>
 </section>
-
-
 
 <section id="producto">
+  <h2>Producto seleccionado</h2>
+  <div class="card">
+    <h3>Focalboard</h3>
+    <p>
+      Focalboard es una plataforma open source de gestión de proyectos y tareas,
+      basada en tableros, tarjetas y flujos de trabajo colaborativos.
+    </p>
+    <p>
+      El sistema permite organizar actividades, administrar tableros de trabajo,
+      gestionar tareas y facilitar la coordinación entre integrantes de un equipo.
+    </p>
+  </div>
 
-<div class="container">
+  <div class="grid">
+    <div class="card">
+      <h3>Problema que resuelve</h3>
+      <p>
+        Permite centralizar tareas, reducir la dispersión de información y mejorar
+        el seguimiento del avance de proyectos.
+      </p>
+    </div>
 
+    <div class="card">
+      <h3>Usuarios objetivo</h3>
+      <p>
+        Equipos de desarrollo, grupos académicos, gestores de proyectos y usuarios
+        que necesitan organizar actividades colaborativas.
+      </p>
+    </div>
 
-<h2>Producto seleccionado</h2>
-
-
-<div class="card">
-
-<h3>Focalboard</h3>
-
-<p>
-Focalboard es una herramienta de administración de proyectos
-orientada a la organización visual de tareas mediante tableros,
-tarjetas y flujos colaborativos.
-
-El sistema permite gestionar actividades,
-asignar responsabilidades y mejorar el seguimiento del trabajo.
-</p>
-
-
-</div>
-
-
-</div>
-
+    <div class="card">
+      <h3>Valor del producto</h3>
+      <p>
+        Mejora la visibilidad del trabajo, facilita la colaboración y permite
+        organizar tareas mediante una interfaz visual.
+      </p>
+    </div>
+  </div>
 </section>
 
+<section id="funcionalidades">
+  <h2>Funcionalidades principales</h2>
 
+  <div class="grid">
+    <div class="card">
+      <h3>Gestión de tableros</h3>
+      <p>Creación y administración de espacios de trabajo colaborativos.</p>
+    </div>
 
+    <div class="card">
+      <h3>Gestión de tarjetas</h3>
+      <p>Registro, edición y seguimiento de tareas dentro de los tableros.</p>
+    </div>
 
-<section>
+    <div class="card">
+      <h3>Vistas y filtros</h3>
+      <p>Organización de información mediante vistas, agrupamientos y filtros.</p>
+    </div>
 
-
-<div class="container">
-
-
-<h2>Módulos principales</h2>
-
-
-<div class="grid">
-
-
-<div class="card">
-
-<h3>Gestión de tableros</h3>
-
-<p>
-Creación y administración de espacios de trabajo colaborativos.
-</p>
-
-</div>
-
-
-
-<div class="card">
-
-<h3>Gestión de tarjetas</h3>
-
-<p>
-Administración de tareas, estados, información y seguimiento.
-</p>
-
-</div>
-
-
-
-<div class="card">
-
-<h3>API REST</h3>
-
-<p>
-Comunicación entre cliente y servidor mediante servicios backend.
-</p>
-
-</div>
-
-
-
-<div class="card">
-
-<h3>Componentes React</h3>
-
-<p>
-Interfaz de usuario, vistas, filtros y panel principal.
-</p>
-
-</div>
-
-
-
-</div>
-
-
-</div>
-
+    <div class="card">
+      <h3>Miembros y permisos</h3>
+      <p>Administración de usuarios, roles y responsabilidades dentro del sistema.</p>
+    </div>
+  </div>
 </section>
 
+<section id="arquitectura">
+  <h2>Arquitectura general</h2>
 
+  <div class="grid">
+    <div class="card">
+      <h3>Backend</h3>
+      <ul>
+        <li>Lenguaje Go.</li>
+        <li>API REST.</li>
+        <li>Lógica principal de aplicación.</li>
+        <li>Gestión de datos y reglas de negocio.</li>
+      </ul>
+    </div>
 
-
-<section id="testing">
-
-<div class="container">
-
-
-<h2>Plan de pruebas unitarias</h2>
-
-
-<div class="grid">
-
-
-<div class="card">
-
-<h3>Alcance</h3>
-
-<p>
-Validación de componentes individuales del sistema,
-separando backend y frontend.
-</p>
-
-</div>
-
-
-<div class="card">
-
-<h3>Herramientas</h3>
-
-<ul>
-
-<li>Go Testing Package</li>
-
-<li>Testify</li>
-
-<li>Jest</li>
-
-<li>Testing Library</li>
-
-<li>GitHub Projects</li>
-
-</ul>
-
-
-</div>
-
-
-
-<div class="card">
-
-<h3>Estrategia</h3>
-
-<p>
-Pruebas aisladas, organización modular,
-priorización de componentes críticos
-y automatización progresiva.
-</p>
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
+    <div class="card">
+      <h3>Frontend</h3>
+      <ul>
+        <li>React.</li>
+        <li>TypeScript.</li>
+        <li>Componentes de interfaz.</li>
+        <li>Vistas de tableros y tarjetas.</li>
+      </ul>
+    </div>
+  </div>
 </section>
-
-
-
 
 <section id="wiki">
+  <h2>Documentación Wiki</h2>
+  <p class="muted">
+    La Wiki del proyecto organiza la planificación inicial de pruebas unitarias,
+    separando la información en páginas independientes para facilitar su lectura
+    y navegación.
+  </p>
 
+  <div class="grid">
+    <div class="card">
+      <h3>Plan de pruebas unitarias</h3>
+      <p>Presenta la introducción, objetivos, alcance general y estado del documento.</p>
+    </div>
 
-<div class="container">
+    <div class="card">
+      <h3>Alcance de las pruebas</h3>
+      <p>Define los componentes incluidos y excluidos del proceso de pruebas unitarias.</p>
+    </div>
 
+    <div class="card">
+      <h3>Módulos seleccionados</h3>
+      <p>Identifica los módulos del backend y frontend que serán considerados.</p>
+    </div>
 
-<h2>Documentación Wiki</h2>
+    <div class="card">
+      <h3>Herramientas y entorno</h3>
+      <p>Describe las herramientas previstas para pruebas en Go, React y TypeScript.</p>
+    </div>
 
+    <div class="card">
+      <h3>Estrategia</h3>
+      <p>Explica el enfoque de validación, priorización y organización del trabajo.</p>
+    </div>
 
-<div class="grid">
-
-
-<div class="card">
-
-<h3>Contenido desarrollado</h3>
-
-<ul>
-
-<li>Plan de pruebas unitarias</li>
-
-<li>Alcance de pruebas</li>
-
-<li>Módulos seleccionados</li>
-
-<li>Herramientas y entorno</li>
-
-<li>Estrategia</li>
-
-<li>Responsables</li>
-
-<li>Riesgos</li>
-
-<li>Evidencias del Hito 1</li>
-
-</ul>
-
-
-</div>
-
-
-
-<div class="card">
-
-<h3>Entregables Hito 1</h3>
-
-<ul>
-
-<li>GitHub Project Kanban/Scrum</li>
-
-<li>GitHub Pages</li>
-
-<li>GitHub Wiki</li>
-
-<li>Repositorio documentado</li>
-
-</ul>
-
-
-</div>
-
-
-</div>
-
-
-
-</div>
-
-
+    <div class="card">
+      <h3>Riesgos y evidencias</h3>
+      <p>Documenta riesgos identificados y evidencias asociadas al primer hito.</p>
+    </div>
+  </div>
 </section>
 
+<section id="testing">
+  <h2>Plan de pruebas unitarias</h2>
 
+  <div class="callout">
+    Este plan corresponde al Hito 1 y se enfoca únicamente en la planificación.
+    No se presentan casos de prueba ejecutados ni resultados de pruebas.
+  </div>
+
+  <h3>Objetivo general</h3>
+  <p>
+    Definir un plan de pruebas unitarias para Focalboard que permita organizar
+    la validación de componentes individuales del sistema, estableciendo una base
+    metodológica para actividades posteriores de control de calidad.
+  </p>
+
+  <h3>Objetivos específicos</h3>
+  <ul>
+    <li>Identificar los módulos principales del sistema.</li>
+    <li>Delimitar el alcance inicial de las pruebas unitarias.</li>
+    <li>Definir herramientas y tecnologías previstas.</li>
+    <li>Establecer una estrategia general para backend y frontend.</li>
+    <li>Documentar la planificación inicial mediante GitHub Wiki.</li>
+  </ul>
+</section>
+
+<section id="alcance">
+  <h2>Alcance de las pruebas</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Componentes incluidos</h3>
+      <ul>
+        <li>API REST.</li>
+        <li>Lógica principal de aplicación.</li>
+        <li>Gestión de tableros.</li>
+        <li>Gestión de tarjetas.</li>
+        <li>Gestión de miembros y permisos.</li>
+        <li>Componentes React principales.</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3>Componentes excluidos</h3>
+      <ul>
+        <li>Pruebas de integración.</li>
+        <li>Pruebas end-to-end.</li>
+        <li>Pruebas de rendimiento.</li>
+        <li>Pruebas de carga.</li>
+        <li>Pruebas de seguridad avanzada.</li>
+        <li>Infraestructura de despliegue.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="modulos">
+  <h2>Módulos seleccionados</h2>
+
+  <table class="table">
+    <tr>
+      <th>Prioridad</th>
+      <th>Módulo</th>
+      <th>Justificación</th>
+    </tr>
+    <tr>
+      <td>Alta</td>
+      <td>Gestión de tableros</td>
+      <td>Representa una funcionalidad central del sistema.</td>
+    </tr>
+    <tr>
+      <td>Alta</td>
+      <td>Gestión de tarjetas</td>
+      <td>Administra la unidad principal de trabajo del usuario.</td>
+    </tr>
+    <tr>
+      <td>Alta</td>
+      <td>API REST</td>
+      <td>Permite la comunicación entre cliente y servidor.</td>
+    </tr>
+    <tr>
+      <td>Media</td>
+      <td>Gestión de miembros y permisos</td>
+      <td>Controla accesos y responsabilidades.</td>
+    </tr>
+    <tr>
+      <td>Media</td>
+      <td>Workspace y panel central</td>
+      <td>Concentran la interacción principal del usuario.</td>
+    </tr>
+  </table>
+</section>
+
+<section id="herramientas">
+  <h2>Herramientas y entorno</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Backend</h3>
+      <span class="tag">Go Testing Package</span>
+      <span class="tag">Testify</span>
+      <span class="tag">Mocks</span>
+    </div>
+
+    <div class="card">
+      <h3>Frontend</h3>
+      <span class="tag">Jest</span>
+      <span class="tag">Testing Library</span>
+      <span class="tag">jsdom</span>
+      <span class="tag">React</span>
+      <span class="tag">TypeScript</span>
+    </div>
+
+    <div class="card">
+      <h3>Gestión</h3>
+      <span class="tag">Git</span>
+      <span class="tag">GitHub</span>
+      <span class="tag">GitHub Wiki</span>
+      <span class="tag">GitHub Projects</span>
+    </div>
+  </div>
+</section>
+
+<section id="estrategia">
+  <h2>Estrategia de pruebas unitarias</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Enfoque</h3>
+      <p>
+        Las pruebas unitarias se aplicarán a componentes individuales,
+        evaluando su comportamiento de manera aislada.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Priorización</h3>
+      <p>
+        Se priorizarán módulos críticos del backend y frontend según su impacto funcional.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Automatización</h3>
+      <p>
+        El proceso será orientado a la automatización progresiva para facilitar
+        el mantenimiento del software.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="responsables">
+  <h2>Responsables y cronograma</h2>
+
+  <table class="table">
+    <tr>
+      <th>Rol</th>
+      <th>Responsabilidad</th>
+    </tr>
+    <tr>
+      <td>Responsable de Calidad</td>
+      <td>Coordinar la planificación de pruebas unitarias.</td>
+    </tr>
+    <tr>
+      <td>Desarrollador Backend</td>
+      <td>Analizar módulos del servidor.</td>
+    </tr>
+    <tr>
+      <td>Desarrollador Frontend</td>
+      <td>Analizar componentes de interfaz.</td>
+    </tr>
+    <tr>
+      <td>Responsable de Documentación</td>
+      <td>Mantener actualizada la Wiki del proyecto.</td>
+    </tr>
+  </table>
+
+  <table class="table">
+    <tr>
+      <th>Sprint</th>
+      <th>Actividad principal</th>
+    </tr>
+    <tr>
+      <td>Sprint 1</td>
+      <td>Investigación, análisis del repositorio y elaboración del plan.</td>
+    </tr>
+    <tr>
+      <td>Sprint 2</td>
+      <td>Identificación detallada de componentes y preparación del entorno.</td>
+    </tr>
+    <tr>
+      <td>Sprint 3</td>
+      <td>Implementación inicial de pruebas unitarias.</td>
+    </tr>
+  </table>
+</section>
+
+<section id="riesgos">
+  <h2>Riesgos y consideraciones</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Complejidad de arquitectura</h3>
+      <p>Puede dificultar el aislamiento de componentes adecuados para pruebas unitarias.</p>
+    </div>
+
+    <div class="card">
+      <h3>Dependencias externas</h3>
+      <p>Algunos módulos pueden requerir mecanismos de simulación o dobles de prueba.</p>
+    </div>
+
+    <div class="card">
+      <h3>Curva de aprendizaje</h3>
+      <p>Las herramientas de testing pueden requerir tiempo adicional de adaptación.</p>
+    </div>
+
+    <div class="card">
+      <h3>Limitaciones de tiempo</h3>
+      <p>El cronograma académico puede restringir el análisis técnico detallado.</p>
+    </div>
+  </div>
+</section>
+
+<section id="evidencias">
+  <h2>Evidencias del Hito 1</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>GitHub Project</h3>
+      <p>Tablero Kanban/Scrum para organizar tareas del equipo.</p>
+    </div>
+
+    <div class="card">
+      <h3>GitHub Pages</h3>
+      <p>Presentación del producto de software seleccionado.</p>
+    </div>
+
+    <div class="card">
+      <h3>GitHub Wiki</h3>
+      <p>Documentación del plan de pruebas unitarias.</p>
+    </div>
+
+    <div class="card">
+      <h3>Repositorio</h3>
+      <p>Código fuente y documentación del producto.</p>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
 
 <footer>
-
-Trabajo Final - Pruebas de Software  
-<br>
-Producto seleccionado: Focalboard
-
+  Trabajo Final - Pruebas de Software<br />
+  Producto seleccionado: Focalboard
 </footer>
 
-
-
 </body>
-
 </html>
