@@ -1,759 +1,1570 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Focalboard - Pruebas de Software</title>
-
-<style>
-:root{
-  --bg:#0d1117;
-  --panel:#161b22;
-  --panel2:#1f2630;
-  --border:#30363d;
-  --text:#c9d1d9;
-  --muted:#8b949e;
-  --blue:#58a6ff;
-  --cyan:#39c5bb;
-  --green:#3fb950;
-  --yellow:#d29922;
-}
-
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-}
-
-body{
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-  background:var(--bg);
-  color:var(--text);
-  line-height:1.7;
-}
-
-a{
-  color:var(--blue);
-  text-decoration:none;
-}
-
-header{
-  position:fixed;
-  top:0;
-  width:100%;
-  z-index:1000;
-  background:rgba(13,17,23,.92);
-  backdrop-filter:blur(12px);
-  border-bottom:1px solid var(--border);
-}
-
-.nav{
-  max-width:1300px;
-  margin:auto;
-  padding:16px 24px;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.logo{
-  font-size:22px;
-  font-weight:700;
-  color:#fff;
-}
-
-.logo span{
-  color:var(--blue);
-}
-
-.nav-links a{
-  margin-left:22px;
-  color:var(--muted);
-  font-size:14px;
-}
-
-.nav-links a:hover{
-  color:var(--blue);
-}
-
-.layout{
-  display:flex;
-  max-width:1400px;
-  margin:0 auto;
-  padding-top:78px;
-}
-
-.sidebar{
-  width:280px;
-  position:sticky;
-  top:78px;
-  height:calc(100vh - 78px);
-  padding:28px 22px;
-  border-right:1px solid var(--border);
-  overflow:auto;
-}
-
-.sidebar h3{
-  font-size:14px;
-  color:#fff;
-  margin-bottom:14px;
-}
-
-.sidebar a{
-  display:block;
-  color:var(--muted);
-  padding:8px 0;
-  font-size:14px;
-}
-
-.sidebar a:hover{
-  color:var(--blue);
-}
-
-main{
-  flex:1;
-  padding:0 38px 80px;
-}
-
-section{
-  padding:70px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.hero{
-  padding-top:95px;
-  text-align:center;
-}
-
-.badge{
-  display:inline-block;
-  padding:8px 14px;
-  border:1px solid var(--border);
-  border-radius:999px;
-  color:var(--cyan);
-  background:rgba(57,197,187,.08);
-  margin-bottom:22px;
-  font-size:14px;
-}
-
-h1{
-  font-size:54px;
-  line-height:1.1;
-  margin-bottom:20px;
-  color:#fff;
-}
-
-h1 span{
-  color:var(--blue);
-}
-
-.hero p{
-  max-width:780px;
-  margin:0 auto;
-  color:var(--muted);
-  font-size:18px;
-}
-
-h2{
-  color:#fff;
-  font-size:34px;
-  margin-bottom:22px;
-}
-
-h3{
-  color:var(--blue);
-  margin-bottom:12px;
-}
-
-p{
-  margin-bottom:16px;
-  color:var(--text);
-}
-
-.muted{
-  color:var(--muted);
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-  gap:22px;
-  margin-top:28px;
-}
-
-.card{
-  background:linear-gradient(180deg,var(--panel),#111820);
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:26px;
-  transition:.25s;
-}
-
-.card:hover{
-  transform:translateY(-4px);
-  border-color:var(--blue);
-  box-shadow:0 12px 28px rgba(88,166,255,.08);
-}
-
-.card h3{
-  font-size:20px;
-}
-
-.card p, .card li{
-  color:var(--muted);
-}
-
-ul{
-  margin-left:20px;
-  margin-top:10px;
-}
-
-li{
-  margin-bottom:8px;
-}
-
-.table{
-  width:100%;
-  border-collapse:collapse;
-  margin-top:24px;
-  overflow:hidden;
-  border-radius:12px;
-}
-
-.table th,
-.table td{
-  border:1px solid var(--border);
-  padding:14px;
-  text-align:left;
-}
-
-.table th{
-  background:var(--panel2);
-  color:#fff;
-}
-
-.table td{
-  color:var(--muted);
-}
-
-.callout{
-  border-left:4px solid var(--blue);
-  background:rgba(88,166,255,.08);
-  padding:18px 20px;
-  border-radius:10px;
-  margin:24px 0;
-}
-
-.button-group{
-  margin-top:28px;
-}
-
-.btn{
-  display:inline-block;
-  padding:12px 18px;
-  border-radius:10px;
-  margin:6px;
-  background:var(--blue);
-  color:#fff;
-  font-weight:600;
-}
-
-.btn.secondary{
-  background:transparent;
-  border:1px solid var(--border);
-  color:var(--text);
-}
-
-.tag{
-  display:inline-block;
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  margin:5px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-footer{
-  text-align:center;
-  padding:40px;
-  color:var(--muted);
-  background:var(--panel);
-  border-top:1px solid var(--border);
-}
-
-@media(max-width:900px){
-  .layout{
-    display:block;
-  }
-
-  .sidebar{
-    display:none;
-  }
-
-  main{
-    padding:0 22px 60px;
-  }
-
-  h1{
-    font-size:38px;
-  }
-
-  .nav{
-    flex-direction:column;
-    gap:12px;
-  }
-
-  .nav-links a{
-    margin:0 8px;
-  }
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focalboard - Gestion de Proyectos de Codigo Abierto</title>
+    <meta name="description" content="Focalboard es una herramienta de gestion de proyectos de codigo abierto, multilingue y auto-hospedada. Alternativa a Trello, Notion y Asana.">
+    <style>
+        /* ========== Reset & Base ========== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+ 
+        :root {
+            --color-primary: #1565c0;
+            --color-primary-dark: #0d47a1;
+            --color-primary-light: #42a5f5;
+            --color-accent: #1e88e5;
+            --color-bg: #ffffff;
+            --color-bg-alt: #f5f7fa;
+            --color-bg-dark: #0b1929;
+            --color-text: #263238;
+            --color-text-light: #607d8b;
+            --color-text-inverse: #ffffff;
+            --color-border: #e0e6ed;
+            --color-card-shadow: rgba(21, 101, 192, 0.08);
+            --font-sans: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+            --radius: 12px;
+            --radius-sm: 8px;
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --max-width: 1200px;
+        }
+ 
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+ 
+        body {
+            font-family: var(--font-sans);
+            color: var(--color-text);
+            background: var(--color-bg);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+ 
+        /* ========== Typography ========== */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.25;
+        }
+ 
+        h1 { font-size: clamp(2.2rem, 5vw, 3.5rem); }
+        h2 { font-size: clamp(1.6rem, 3.5vw, 2.4rem); }
+        h3 { font-size: 1.25rem; }
+ 
+        p {
+            color: var(--color-text-light);
+            max-width: 680px;
+        }
+ 
+        a {
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+ 
+        a:hover {
+            color: var(--color-primary-dark);
+        }
+ 
+        /* ========== Utilities ========== */
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+ 
+        .section {
+            padding: 100px 0;
+        }
+ 
+        .section-alt {
+            background: var(--color-bg-alt);
+        }
+ 
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+ 
+        .section-header h2 {
+            color: var(--color-text);
+            margin-bottom: 16px;
+        }
+ 
+        .section-header p {
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+ 
+        .label {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+        }
+ 
+        /* ========== Navigation ========== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid transparent;
+            transition: border-color var(--transition), box-shadow var(--transition);
+        }
+ 
+        .navbar.scrolled {
+            border-bottom-color: var(--color-border);
+            box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+        }
+ 
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 72px;
+        }
+ 
+        .navbar-brand {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--color-primary-dark);
+            letter-spacing: -0.5px;
+        }
+ 
+        .navbar-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+ 
+        .navbar-links a {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--color-text-light);
+            transition: color var(--transition);
+            position: relative;
+        }
+ 
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--color-primary);
+            transition: width var(--transition);
+        }
+ 
+        .navbar-links a:hover {
+            color: var(--color-primary);
+        }
+ 
+        .navbar-links a:hover::after {
+            width: 100%;
+        }
+ 
+        .navbar-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+ 
+        .navbar-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--color-text);
+            border-radius: 2px;
+            transition: transform var(--transition), opacity var(--transition);
+        }
+ 
+        /* ========== Hero ========== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, #0b1929 0%, #1a3a5c 50%, #1565c0 100%);
+            overflow: hidden;
+        }
+ 
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(66, 165, 245, 0.15) 0%, transparent 70%),
+                        radial-gradient(ellipse at 80% 20%, rgba(21, 101, 192, 0.2) 0%, transparent 50%);
+        }
+ 
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+ 
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 720px;
+        }
+ 
+        .hero-content h1 {
+            color: var(--color-text-inverse);
+            margin-bottom: 24px;
+        }
+ 
+        .hero-content h1 span {
+            background: linear-gradient(90deg, #42a5f5, #80d8ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+ 
+        .hero-content p {
+            color: rgba(255, 255, 255, 0.78);
+            font-size: 1.2rem;
+            max-width: 560px;
+            margin-bottom: 40px;
+        }
+ 
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+ 
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+        }
+ 
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+ 
+        .btn-primary {
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            box-shadow: 0 4px 20px rgba(21, 101, 192, 0.35);
+        }
+ 
+        .btn-primary:hover {
+            background: var(--color-primary-dark);
+            color: var(--color-text-inverse);
+            box-shadow: 0 6px 28px rgba(21, 101, 192, 0.45);
+        }
+ 
+        .btn-outline {
+            background: transparent;
+            color: var(--color-text-inverse);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+ 
+        .btn-outline:hover {
+            border-color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--color-text-inverse);
+        }
+ 
+        .hero-visual {
+            position: absolute;
+            right: -60px;
+            bottom: -40px;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(66, 165, 245, 0.12) 0%, transparent 70%);
+            z-index: 1;
+        }
+ 
+        .hero-float {
+            position: absolute;
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            z-index: 2;
+            animation: heroFloat 6s ease-in-out infinite;
+        }
+ 
+        .hero-float-1 {
+            width: 260px;
+            height: 160px;
+            right: 10%;
+            top: 22%;
+            animation-delay: 0s;
+        }
+ 
+        .hero-float-2 {
+            width: 200px;
+            height: 120px;
+            right: 5%;
+            top: 55%;
+            animation-delay: -2s;
+        }
+ 
+        .hero-float-3 {
+            width: 180px;
+            height: 100px;
+            right: 25%;
+            top: 70%;
+            animation-delay: -4s;
+        }
+ 
+        .hero-float-inner {
+            padding: 20px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+ 
+        .hero-float-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.12);
+        }
+ 
+        .hero-float-bar:nth-child(1) { width: 70%; }
+        .hero-float-bar:nth-child(2) { width: 50%; }
+        .hero-float-bar:nth-child(3) { width: 85%; }
+        .hero-float-bar:nth-child(4) { width: 40%; }
+ 
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-16px); }
+        }
+ 
+        /* ========== About ========== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+ 
+        .about-text h2 {
+            margin-bottom: 20px;
+        }
+ 
+        .about-text p {
+            margin-bottom: 16px;
+            font-size: 1.05rem;
+        }
+ 
+        .about-visual {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 40px;
+            min-height: 380px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .about-board {
+            width: 100%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+ 
+        .about-column {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+        }
+ 
+        .about-column-title {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-primary);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--color-primary-light);
+        }
+ 
+        .about-card {
+            background: var(--color-bg);
+            border-radius: 6px;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+            font-size: 0.82rem;
+            color: var(--color-text);
+            border-left: 3px solid transparent;
+            transition: border-color var(--transition), transform var(--transition);
+        }
+ 
+        .about-card:hover {
+            border-left-color: var(--color-primary);
+            transform: translateX(4px);
+        }
+ 
+        .about-card.accent-blue { border-left-color: #42a5f5; }
+        .about-card.accent-green { border-left-color: #66bb6a; }
+        .about-card.accent-orange { border-left-color: #ffa726; }
+ 
+        /* ========== Features (Views) ========== */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 24px;
+        }
+ 
+        .feature-card {
+            background: var(--color-bg);
+            border-radius: var(--radius);
+            padding: 36px 28px;
+            border: 1px solid var(--color-border);
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-light));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform var(--transition);
+        }
+ 
+        .feature-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px var(--color-card-shadow);
+            border-color: var(--color-primary-light);
+        }
+ 
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+ 
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-text-inverse);
+        }
+ 
+        .feature-icon.blue { background: linear-gradient(135deg, #1565c0, #42a5f5); }
+        .feature-icon.teal { background: linear-gradient(135deg, #00897b, #4db6ac); }
+        .feature-icon.indigo { background: linear-gradient(135deg, #283593, #5c6bc0); }
+        .feature-icon.amber { background: linear-gradient(135deg, #f57f17, #ffb74d); }
+ 
+        .feature-card h3 {
+            margin-bottom: 12px;
+            color: var(--color-text);
+        }
+ 
+        .feature-card p {
+            font-size: 0.95rem;
+            line-height: 1.65;
+        }
+ 
+        /* ========== Templates ========== */
+        .templates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+        }
+ 
+        .template-card {
+            background: var(--color-bg);
+            border-radius: var(--radius);
+            padding: 28px 24px;
+            border: 1px solid var(--color-border);
+            text-align: center;
+            transition: transform var(--transition), box-shadow var(--transition);
+            cursor: default;
+        }
+ 
+        .template-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px var(--color-card-shadow);
+        }
+ 
+        .template-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            margin: 0 auto 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .template-icon svg {
+            width: 24px;
+            height: 24px;
+        }
+ 
+        .template-card h3 {
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+        }
+ 
+        .template-card p {
+            font-size: 0.88rem;
+            margin: 0 auto;
+        }
+ 
+        /* ========== Collaboration ========== */
+        .collab-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+ 
+        .collab-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+ 
+        .collab-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 24px;
+            background: var(--color-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--color-border);
+            transition: box-shadow var(--transition), transform var(--transition);
+        }
+ 
+        .collab-item:hover {
+            box-shadow: 0 8px 24px var(--color-card-shadow);
+            transform: translateY(-2px);
+        }
+ 
+        .collab-icon {
+            flex-shrink: 0;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            background: var(--color-bg-alt);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .collab-icon svg {
+            width: 22px;
+            height: 22px;
+            stroke: var(--color-primary);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+ 
+        .collab-item h3 {
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+ 
+        .collab-item p {
+            font-size: 0.9rem;
+        }
+ 
+        .collab-visual {
+            position: relative;
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, #e8eaf6, #c5cae9);
+            padding: 40px;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 16px;
+        }
+ 
+        .collab-avatar-row {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+ 
+        .collab-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--color-text-inverse);
+        }
+ 
+        .collab-msg {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px 12px 12px 4px;
+            padding: 14px 18px;
+            font-size: 0.88rem;
+            color: var(--color-text);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        }
+ 
+        /* ========== Editions ========== */
+        .editions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+        }
+ 
+        .edition-card {
+            background: var(--color-bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--color-border);
+            overflow: hidden;
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+ 
+        .edition-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px var(--color-card-shadow);
+        }
+ 
+        .edition-header {
+            padding: 32px 28px 24px;
+            border-bottom: 1px solid var(--color-border);
+        }
+ 
+        .edition-header h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+        }
+ 
+        .edition-header p {
+            font-size: 0.92rem;
+        }
+ 
+        .edition-features {
+            padding: 24px 28px 32px;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+ 
+        .edition-features li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.92rem;
+            color: var(--color-text);
+        }
+ 
+        .edition-check {
+            flex-shrink: 0;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            background: #e8f5e9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+ 
+        .edition-check svg {
+            width: 14px;
+            height: 14px;
+            stroke: #43a047;
+            fill: none;
+            stroke-width: 2.5;
+        }
+ 
+        .edition-card.featured {
+            border-color: var(--color-primary);
+            position: relative;
+        }
+ 
+        .edition-card.featured::before {
+            content: 'Popular';
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--color-primary);
+            color: var(--color-text-inverse);
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+ 
+        /* ========== Tech Features ========== */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+        }
+ 
+        .tech-card {
+            text-align: center;
+            padding: 48px 32px;
+            border-radius: var(--radius);
+            background: var(--color-bg);
+            border: 1px solid var(--color-border);
+            transition: transform var(--transition), box-shadow var(--transition);
+        }
+ 
+        .tech-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 36px var(--color-card-shadow);
+        }
+ 
+        .tech-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--color-bg-alt);
+        }
+ 
+        .tech-icon svg {
+            width: 32px;
+            height: 32px;
+            stroke: var(--color-primary);
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+ 
+        .tech-card h3 {
+            font-size: 1.15rem;
+            margin-bottom: 12px;
+        }
+ 
+        .tech-card p {
+            font-size: 0.92rem;
+            margin: 0 auto;
+        }
+ 
+        /* ========== Footer ========== */
+        .footer {
+            background: var(--color-bg-dark);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 72px 0 32px;
+        }
+ 
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+ 
+        .footer-brand h3 {
+            font-size: 1.4rem;
+            color: var(--color-text-inverse);
+            margin-bottom: 16px;
+        }
+ 
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.92rem;
+            max-width: 320px;
+        }
+ 
+        .footer-col h4 {
+            color: var(--color-text-inverse);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 20px;
+        }
+ 
+        .footer-col ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+ 
+        .footer-col a {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 0.9rem;
+            transition: color var(--transition);
+        }
+ 
+        .footer-col a:hover {
+            color: var(--color-text-inverse);
+        }
+ 
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+ 
+        .footer-bottom-links {
+            display: flex;
+            gap: 24px;
+        }
+ 
+        .footer-bottom-links a {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.85rem;
+        }
+ 
+        .footer-bottom-links a:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+ 
+        /* ========== Scroll Animations ========== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+ 
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+ 
+        /* ========== Responsive ========== */
+        @media (max-width: 968px) {
+            .about-grid,
+            .collab-grid {
+                grid-template-columns: 1fr;
+            }
+ 
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+ 
+            .tech-grid {
+                grid-template-columns: 1fr;
+            }
+ 
+            .hero-float {
+                display: none;
+            }
+ 
+            .hero-visual {
+                display: none;
+            }
+        }
+ 
+        @media (max-width: 768px) {
+            .section {
+                padding: 72px 0;
+            }
+ 
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 72px;
+                left: 0;
+                width: 100%;
+                background: var(--color-bg);
+                flex-direction: column;
+                padding: 24px;
+                gap: 16px;
+                border-bottom: 1px solid var(--color-border);
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            }
+ 
+            .navbar-links.open {
+                display: flex;
+            }
+ 
+            .navbar-toggle {
+                display: flex;
+            }
+ 
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+ 
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+ 
+            .editions-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+ 
+        @media (max-width: 480px) {
+            .hero-actions {
+                flex-direction: column;
+            }
+ 
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-<header>
-  <div class="nav">
-    <div class="logo">Focal<span>board</span></div>
-    <div class="nav-links">
-      <a href="#producto">Producto</a>
-      <a href="#wiki">Wiki</a>
-      <a href="#testing">Testing</a>
-      <a href="#evidencias">Hito 1</a>
-    </div>
-  </div>
-</header>
-
-<div class="layout">
-
-<aside class="sidebar">
-  <h3>Navegación</h3>
-  <a href="#inicio">Inicio</a>
-  <a href="#producto">Producto seleccionado</a>
-  <a href="#funcionalidades">Funcionalidades</a>
-  <a href="#arquitectura">Arquitectura</a>
-  <a href="#wiki">Documentación Wiki</a>
-  <a href="#testing">Plan de pruebas unitarias</a>
-  <a href="#alcance">Alcance de pruebas</a>
-  <a href="#modulos">Módulos seleccionados</a>
-  <a href="#herramientas">Herramientas</a>
-  <a href="#estrategia">Estrategia</a>
-  <a href="#responsables">Responsables</a>
-  <a href="#riesgos">Riesgos</a>
-  <a href="#evidencias">Evidencias Hito 1</a>
-</aside>
-
-<main>
-
-<section id="inicio" class="hero">
-  <span class="badge">Primer Hito · Pruebas de Software</span>
-  <h1>Presentación del producto <span>Focalboard</span></h1>
-  <p>
-    Documentación del producto de software seleccionado y planificación inicial
-    de pruebas unitarias para el trabajo final del curso de Pruebas de Software.
-  </p>
-
-  <div class="button-group">
-    <a class="btn" href="#producto">Ver producto</a>
-    <a class="btn secondary" href="#wiki">Ver documentación</a>
-  </div>
-</section>
-
-<section id="producto">
-  <h2>Producto seleccionado</h2>
-  <div class="card">
-    <h3>Focalboard</h3>
-    <p>
-      Focalboard es una plataforma open source de gestión de proyectos y tareas,
-      basada en tableros, tarjetas y flujos de trabajo colaborativos.
-    </p>
-    <p>
-      El sistema permite organizar actividades, administrar tableros de trabajo,
-      gestionar tareas y facilitar la coordinación entre integrantes de un equipo.
-    </p>
-  </div>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Problema que resuelve</h3>
-      <p>
-        Permite centralizar tareas, reducir la dispersión de información y mejorar
-        el seguimiento del avance de proyectos.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Usuarios objetivo</h3>
-      <p>
-        Equipos de desarrollo, grupos académicos, gestores de proyectos y usuarios
-        que necesitan organizar actividades colaborativas.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Valor del producto</h3>
-      <p>
-        Mejora la visibilidad del trabajo, facilita la colaboración y permite
-        organizar tareas mediante una interfaz visual.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section id="funcionalidades">
-  <h2>Funcionalidades principales</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Gestión de tableros</h3>
-      <p>Creación y administración de espacios de trabajo colaborativos.</p>
-    </div>
-
-    <div class="card">
-      <h3>Gestión de tarjetas</h3>
-      <p>Registro, edición y seguimiento de tareas dentro de los tableros.</p>
-    </div>
-
-    <div class="card">
-      <h3>Vistas y filtros</h3>
-      <p>Organización de información mediante vistas, agrupamientos y filtros.</p>
-    </div>
-
-    <div class="card">
-      <h3>Miembros y permisos</h3>
-      <p>Administración de usuarios, roles y responsabilidades dentro del sistema.</p>
-    </div>
-  </div>
-</section>
-
-<section id="arquitectura">
-  <h2>Arquitectura general</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Backend</h3>
-      <ul>
-        <li>Lenguaje Go.</li>
-        <li>API REST.</li>
-        <li>Lógica principal de aplicación.</li>
-        <li>Gestión de datos y reglas de negocio.</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>Frontend</h3>
-      <ul>
-        <li>React.</li>
-        <li>TypeScript.</li>
-        <li>Componentes de interfaz.</li>
-        <li>Vistas de tableros y tarjetas.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="wiki">
-  <h2>Documentación Wiki</h2>
-  <p class="muted">
-    La Wiki del proyecto organiza la planificación inicial de pruebas unitarias,
-    separando la información en páginas independientes para facilitar su lectura
-    y navegación.
-  </p>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Plan de pruebas unitarias</h3>
-      <p>Presenta la introducción, objetivos, alcance general y estado del documento.</p>
-    </div>
-
-    <div class="card">
-      <h3>Alcance de las pruebas</h3>
-      <p>Define los componentes incluidos y excluidos del proceso de pruebas unitarias.</p>
-    </div>
-
-    <div class="card">
-      <h3>Módulos seleccionados</h3>
-      <p>Identifica los módulos del backend y frontend que serán considerados.</p>
-    </div>
-
-    <div class="card">
-      <h3>Herramientas y entorno</h3>
-      <p>Describe las herramientas previstas para pruebas en Go, React y TypeScript.</p>
-    </div>
-
-    <div class="card">
-      <h3>Estrategia</h3>
-      <p>Explica el enfoque de validación, priorización y organización del trabajo.</p>
-    </div>
-
-    <div class="card">
-      <h3>Riesgos y evidencias</h3>
-      <p>Documenta riesgos identificados y evidencias asociadas al primer hito.</p>
-    </div>
-  </div>
-</section>
-
-<section id="testing">
-  <h2>Plan de pruebas unitarias</h2>
-
-  <div class="callout">
-    Este plan corresponde al Hito 1 y se enfoca únicamente en la planificación.
-    No se presentan casos de prueba ejecutados ni resultados de pruebas.
-  </div>
-
-  <h3>Objetivo general</h3>
-  <p>
-    Definir un plan de pruebas unitarias para Focalboard que permita organizar
-    la validación de componentes individuales del sistema, estableciendo una base
-    metodológica para actividades posteriores de control de calidad.
-  </p>
-
-  <h3>Objetivos específicos</h3>
-  <ul>
-    <li>Identificar los módulos principales del sistema.</li>
-    <li>Delimitar el alcance inicial de las pruebas unitarias.</li>
-    <li>Definir herramientas y tecnologías previstas.</li>
-    <li>Establecer una estrategia general para backend y frontend.</li>
-    <li>Documentar la planificación inicial mediante GitHub Wiki.</li>
-  </ul>
-</section>
-
-<section id="alcance">
-  <h2>Alcance de las pruebas</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Componentes incluidos</h3>
-      <ul>
-        <li>API REST.</li>
-        <li>Lógica principal de aplicación.</li>
-        <li>Gestión de tableros.</li>
-        <li>Gestión de tarjetas.</li>
-        <li>Gestión de miembros y permisos.</li>
-        <li>Componentes React principales.</li>
-      </ul>
-    </div>
-
-    <div class="card">
-      <h3>Componentes excluidos</h3>
-      <ul>
-        <li>Pruebas de integración.</li>
-        <li>Pruebas end-to-end.</li>
-        <li>Pruebas de rendimiento.</li>
-        <li>Pruebas de carga.</li>
-        <li>Pruebas de seguridad avanzada.</li>
-        <li>Infraestructura de despliegue.</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<section id="modulos">
-  <h2>Módulos seleccionados</h2>
-
-  <table class="table">
-    <tr>
-      <th>Prioridad</th>
-      <th>Módulo</th>
-      <th>Justificación</th>
-    </tr>
-    <tr>
-      <td>Alta</td>
-      <td>Gestión de tableros</td>
-      <td>Representa una funcionalidad central del sistema.</td>
-    </tr>
-    <tr>
-      <td>Alta</td>
-      <td>Gestión de tarjetas</td>
-      <td>Administra la unidad principal de trabajo del usuario.</td>
-    </tr>
-    <tr>
-      <td>Alta</td>
-      <td>API REST</td>
-      <td>Permite la comunicación entre cliente y servidor.</td>
-    </tr>
-    <tr>
-      <td>Media</td>
-      <td>Gestión de miembros y permisos</td>
-      <td>Controla accesos y responsabilidades.</td>
-    </tr>
-    <tr>
-      <td>Media</td>
-      <td>Workspace y panel central</td>
-      <td>Concentran la interacción principal del usuario.</td>
-    </tr>
-  </table>
-</section>
-
-<section id="herramientas">
-  <h2>Herramientas y entorno</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Backend</h3>
-      <span class="tag">Go Testing Package</span>
-      <span class="tag">Testify</span>
-      <span class="tag">Mocks</span>
-    </div>
-
-    <div class="card">
-      <h3>Frontend</h3>
-      <span class="tag">Jest</span>
-      <span class="tag">Testing Library</span>
-      <span class="tag">jsdom</span>
-      <span class="tag">React</span>
-      <span class="tag">TypeScript</span>
-    </div>
-
-    <div class="card">
-      <h3>Gestión</h3>
-      <span class="tag">Git</span>
-      <span class="tag">GitHub</span>
-      <span class="tag">GitHub Wiki</span>
-      <span class="tag">GitHub Projects</span>
-    </div>
-  </div>
-</section>
-
-<section id="estrategia">
-  <h2>Estrategia de pruebas unitarias</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Enfoque</h3>
-      <p>
-        Las pruebas unitarias se aplicarán a componentes individuales,
-        evaluando su comportamiento de manera aislada.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Priorización</h3>
-      <p>
-        Se priorizarán módulos críticos del backend y frontend según su impacto funcional.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>Automatización</h3>
-      <p>
-        El proceso será orientado a la automatización progresiva para facilitar
-        el mantenimiento del software.
-      </p>
-    </div>
-  </div>
-</section>
-
-<section id="responsables">
-  <h2>Responsables y cronograma</h2>
-
-  <table class="table">
-    <tr>
-      <th>Rol</th>
-      <th>Responsabilidad</th>
-    </tr>
-    <tr>
-      <td>Responsable de Calidad</td>
-      <td>Coordinar la planificación de pruebas unitarias.</td>
-    </tr>
-    <tr>
-      <td>Desarrollador Backend</td>
-      <td>Analizar módulos del servidor.</td>
-    </tr>
-    <tr>
-      <td>Desarrollador Frontend</td>
-      <td>Analizar componentes de interfaz.</td>
-    </tr>
-    <tr>
-      <td>Responsable de Documentación</td>
-      <td>Mantener actualizada la Wiki del proyecto.</td>
-    </tr>
-  </table>
-
-  <table class="table">
-    <tr>
-      <th>Sprint</th>
-      <th>Actividad principal</th>
-    </tr>
-    <tr>
-      <td>Sprint 1</td>
-      <td>Investigación, análisis del repositorio y elaboración del plan.</td>
-    </tr>
-    <tr>
-      <td>Sprint 2</td>
-      <td>Identificación detallada de componentes y preparación del entorno.</td>
-    </tr>
-    <tr>
-      <td>Sprint 3</td>
-      <td>Implementación inicial de pruebas unitarias.</td>
-    </tr>
-  </table>
-</section>
-
-<section id="riesgos">
-  <h2>Riesgos y consideraciones</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>Complejidad de arquitectura</h3>
-      <p>Puede dificultar el aislamiento de componentes adecuados para pruebas unitarias.</p>
-    </div>
-
-    <div class="card">
-      <h3>Dependencias externas</h3>
-      <p>Algunos módulos pueden requerir mecanismos de simulación o dobles de prueba.</p>
-    </div>
-
-    <div class="card">
-      <h3>Curva de aprendizaje</h3>
-      <p>Las herramientas de testing pueden requerir tiempo adicional de adaptación.</p>
-    </div>
-
-    <div class="card">
-      <h3>Limitaciones de tiempo</h3>
-      <p>El cronograma académico puede restringir el análisis técnico detallado.</p>
-    </div>
-  </div>
-</section>
-
-<section id="evidencias">
-  <h2>Evidencias del Hito 1</h2>
-
-  <div class="grid">
-    <div class="card">
-      <h3>GitHub Project</h3>
-      <p>Tablero Kanban/Scrum para organizar tareas del equipo.</p>
-    </div>
-
-    <div class="card">
-      <h3>GitHub Pages</h3>
-      <p>Presentación del producto de software seleccionado.</p>
-    </div>
-
-    <div class="card">
-      <h3>GitHub Wiki</h3>
-      <p>Documentación del plan de pruebas unitarias.</p>
-    </div>
-
-    <div class="card">
-      <h3>Repositorio</h3>
-      <p>Código fuente y documentación del producto.</p>
-    </div>
-  </div>
-</section>
-
-</main>
-</div>
-
-<footer>
-  Trabajo Final - Pruebas de Software<br />
-  Producto seleccionado: Focalboard
-</footer>
-
+ 
+    <!-- Navegacion -->
+    <nav class="navbar" id="navbar">
+        <div class="container navbar-inner">
+            <a href="#hero" class="navbar-brand">Focalboard</a>
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="#about">Acerca de</a></li>
+                <li><a href="#features">Vistas</a></li>
+                <li><a href="#templates">Plantillas</a></li>
+                <li><a href="#collaboration">Colaboracion</a></li>
+                <li><a href="#editions">Ediciones</a></li>
+                <li><a href="#tech">Tecnologia</a></li>
+            </ul>
+            <button class="navbar-toggle" id="navToggle" aria-label="Menu de navegacion">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+ 
+    <!-- Hero -->
+    <section class="hero" id="hero">
+        <div class="hero-grid"></div>
+        <div class="container hero-content">
+            <span class="label">Codigo abierto y auto-hospedado</span>
+            <h1>Gestiona tus proyectos con <span>Focalboard</span></h1>
+            <p>
+                Una herramienta de gestion de proyectos de codigo abierto, multilingue y auto-hospedada.
+                La alternativa a Trello, Notion y Asana que tu equipo necesita.
+            </p>
+            <div class="hero-actions">
+                <a href="#editions" class="btn btn-primary">Comenzar ahora</a>
+                <a href="#about" class="btn btn-outline">Conocer mas</a>
+            </div>
+        </div>
+        <div class="hero-visual"></div>
+        <div class="hero-float hero-float-1">
+            <div class="hero-float-inner">
+                <div class="hero-float-bar"></div>
+                <div class="hero-float-bar"></div>
+                <div class="hero-float-bar"></div>
+                <div class="hero-float-bar"></div>
+            </div>
+        </div>
+        <div class="hero-float hero-float-2">
+            <div class="hero-float-inner">
+                <div class="hero-float-bar"></div>
+                <div class="hero-float-bar"></div>
+                <div class="hero-float-bar"></div>
+            </div>
+        </div>
+        <div class="hero-float hero-float-3">
+            <div class="hero-float-inner">
+                <div class="hero-float-bar"></div>
+                <div class="hero-float-bar"></div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Que es Focalboard -->
+    <section class="section" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <span class="label">Que es Focalboard</span>
+                    <h2>Organiza, planifica y colabora en un solo lugar</h2>
+                    <p>
+                        Focalboard es una plataforma de gestion de proyectos de codigo abierto que ayuda
+                        a definir, organizar, rastrear y gestionar el trabajo a traves de individuos y equipos.
+                    </p>
+                    <p>
+                        Diseada como alternativa a herramientas propietarias como Trello, Notion y Asana,
+                        Focalboard ofrece total control sobre tus datos con la posibilidad de auto-hospedaje,
+                        soporte multilingue y una interfaz moderna e intuitiva.
+                    </p>
+                    <p>
+                        Desde tareas personales hasta flujos de trabajo complejos de equipo, Focalboard
+                        se adapta a tus necesidades con multiples vistas, plantillas y propiedades personalizables.
+                    </p>
+                </div>
+                <div class="about-visual reveal">
+                    <div class="about-board">
+                        <div class="about-column">
+                            <div class="about-column-title">Por hacer</div>
+                            <div class="about-card accent-blue">Disenar interfaz de usuario</div>
+                            <div class="about-card accent-green">Configurar base de datos</div>
+                            <div class="about-card">Crear documentacion</div>
+                        </div>
+                        <div class="about-column">
+                            <div class="about-column-title">En progreso</div>
+                            <div class="about-card accent-orange">Desarrollar API REST</div>
+                            <div class="about-card accent-blue">Pruebas unitarias</div>
+                        </div>
+                        <div class="about-column">
+                            <div class="about-column-title">Completado</div>
+                            <div class="about-card accent-green">Planificacion del sprint</div>
+                            <div class="about-card accent-green">Revision de requisitos</div>
+                            <div class="about-card">Configuracion del entorno</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Caracteristicas: Vistas -->
+    <section class="section section-alt" id="features">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="label">Vistas</span>
+                <h2>Multiples formas de visualizar tu trabajo</h2>
+                <p>
+                    Elige la vista que mejor se adapte a tu flujo de trabajo.
+                    Cambia entre vistas en cualquier momento sin perder informacion.
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon blue">K</div>
+                    <h3>Vista Kanban</h3>
+                    <p>
+                        Organiza tus tareas en columnas arrastrables. Visualiza el flujo
+                        de trabajo de tu equipo, identifica cuellos de botella y mueve
+                        tarjetas entre estados con facilidad.
+                    </p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon teal">T</div>
+                    <h3>Vista de Tabla</h3>
+                    <p>
+                        Visualiza todas tus tareas en un formato de hoja de calculo con
+                        columnas personalizables. Ordena, filtra y agrupa por cualquier
+                        propiedad para analisis detallados.
+                    </p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon indigo">G</div>
+                    <h3>Vista de Galeria</h3>
+                    <p>
+                        Presenta tus tarjetas como mosaicos visuales con imagenes destacadas.
+                        Ideal para gestionar contenido visual, portafolios o cualquier
+                        proyecto con componentes graficos.
+                    </p>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon amber">C</div>
+                    <h3>Vista de Calendario</h3>
+                    <p>
+                        Planifica y visualiza tareas en una linea temporal. Gestiona
+                        fechas limite, identifica conflictos de agenda y mantiene a tu
+                        equipo sincronizado con los plazos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Plantillas -->
+    <section class="section" id="templates">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="label">Plantillas</span>
+                <h2>Comienza rapido con plantillas predefinidas</h2>
+                <p>
+                    Utiliza plantillas listas para usar o crea las tuyas propias.
+                    Acelera la configuracion de nuevos proyectos y mantiene la consistencia.
+                </p>
+            </div>
+            <div class="templates-grid">
+                <div class="template-card reveal">
+                    <div class="template-icon" style="background: #e3f2fd;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#1565c0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="7" height="9" rx="1"></rect>
+                            <rect x="14" y="3" width="7" height="5" rx="1"></rect>
+                            <rect x="14" y="12" width="7" height="9" rx="1"></rect>
+                            <rect x="3" y="16" width="7" height="5" rx="1"></rect>
+                        </svg>
+                    </div>
+                    <h3>Tablero de Proyecto</h3>
+                    <p>Gestiona el ciclo de vida completo de un proyecto con estados personalizables.</p>
+                </div>
+                <div class="template-card reveal">
+                    <div class="template-icon" style="background: #e8f5e9;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#43a047" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                        </svg>
+                    </div>
+                    <h3>Notas de Reunion</h3>
+                    <p>Registra acuerdos, decisiones y tareas pendientes de cada reunion.</p>
+                </div>
+                <div class="template-card reveal">
+                    <div class="template-icon" style="background: #fff3e0;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#ef6c00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Hoja de Ruta</h3>
+                    <p>Planifica el desarrollo de tu producto con hitos y entregas clave.</p>
+                </div>
+                <div class="template-card reveal">
+                    <div class="template-icon" style="background: #f3e5f5;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#8e24aa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                    </div>
+                    <h3>CRM de Contactos</h3>
+                    <p>Gestiona relaciones con clientes, seguimientos y oportunidades de negocio.</p>
+                </div>
+                <div class="template-card reveal">
+                    <div class="template-icon" style="background: #e0f2f1;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#00897b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                    </div>
+                    <h3>Seguimiento de Tareas</h3>
+                    <p>Registra y prioriza tareas diarias con estados y fechas limite.</p>
+                </div>
+                <div class="template-card reveal">
+                    <div class="template-icon" style="background: #fce4ec;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="#c62828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                    </div>
+                    <h3>Registro de Errores</h3>
+                    <p>Rastrea y gestiona errores con prioridad, estado y asignacion.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Colaboracion -->
+    <section class="section section-alt" id="collaboration">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="label">Colaboracion</span>
+                <h2>Trabaja en equipo de forma eficiente</h2>
+                <p>
+                    Herramientas integradas para que tu equipo colabore en tiempo real,
+                    comparta informacion y mantenga la alineacion en cada proyecto.
+                </p>
+            </div>
+            <div class="collab-grid">
+                <ul class="collab-list">
+                    <li class="collab-item reveal">
+                        <div class="collab-icon">
+                            <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <div>
+                            <h3>Tableros compartidos</h3>
+                            <p>Comparte tableros con tu equipo y gestionen juntos las tareas del proyecto en un espacio centralizado.</p>
+                        </div>
+                    </li>
+                    <li class="collab-item reveal">
+                        <div class="collab-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        </div>
+                        <div>
+                            <h3>Comentarios en tarjetas</h3>
+                            <p>Agrega comentarios y discusiones directamente en cada tarjeta para mantener el contexto relevante.</p>
+                        </div>
+                    </li>
+                    <li class="collab-item reveal">
+                        <div class="collab-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <div>
+                            <h3>Actualizaciones en tiempo real</h3>
+                            <p>Los cambios se sincronizan instantaneamente mediante WebSocket para que todos vean la informacion mas reciente.</p>
+                        </div>
+                    </li>
+                    <li class="collab-item reveal">
+                        <div class="collab-icon">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                        <div>
+                            <h3>Permisos y acceso</h3>
+                            <p>Controla quien puede ver y editar cada tablero con un sistema de permisos flexible y seguro.</p>
+                        </div>
+                    </li>
+                </ul>
+                <div class="collab-visual reveal">
+                    <div class="collab-avatar-row">
+                        <div class="collab-avatar" style="background: #1565c0;">AM</div>
+                        <div class="collab-msg">He movido la tarea de diseo a "En revision". Ya esta lista para feedback.</div>
+                    </div>
+                    <div class="collab-avatar-row">
+                        <div class="collab-avatar" style="background: #43a047;">LC</div>
+                        <div class="collab-msg">Perfecto, la reviso ahora. Tambien actualice las prioridades del sprint.</div>
+                    </div>
+                    <div class="collab-avatar-row">
+                        <div class="collab-avatar" style="background: #ef6c00;">PR</div>
+                        <div class="collab-msg">He agregado los requisitos del cliente a la tarjeta de planificacion.</div>
+                    </div>
+                    <div class="collab-avatar-row">
+                        <div class="collab-avatar" style="background: #8e24aa;">MV</div>
+                        <div class="collab-msg">Las pruebas de integracion pasaron correctamente. Podemos desplegar.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Ediciones -->
+    <section class="section" id="editions">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="label">Ediciones</span>
+                <h2>Elige la edicion que se adapte a tus necesidades</h2>
+                <p>
+                    Focalboard esta disponible en dos ediciones gratuitas
+                    para uso personal y desarrollo.
+                </p>
+            </div>
+            <div class="editions-grid">
+                <div class="edition-card reveal">
+                    <div class="edition-header">
+                        <h3>Personal Desktop</h3>
+                        <p>Aplicacion de escritorio para un solo usuario. Ideal para tareas personales y proyectos individuales.</p>
+                    </div>
+                    <ul class="edition-features">
+                        <li>
+                            <span class="edition-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                            Disponible para macOS, Windows y Linux
+                        </li>
+                        <li>
+                            <span class="edition-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                            Base de datos SQLite integrada
+                        </li>
+                        <li>
+                            <span class="edition-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                            Sin necesidad de servidor
+                        </li>
+                        <li>
+                            <span class="edition-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                            Todas las vistas incluidas
+                        </li>
+                        <li>
+                            <span class="edition-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                            Importacion y exportacion de datos
+                        </li>
+                    </ul>
+                </div>
+                <div class="edition-card featured reveal">
+                    <div class="edition-header">
+                        <h3>Personal Server</h3>
+                        <p>Servidor independiente multiusuario para equipos de desarrollo y uso personal avanzado.</p>
+                    </div>
+                    <ul class="edition-features">
+                        <li>
+                            <span class="edition-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                            Soporte multiusuario completo
+                        </li>
+                        <li>
+                            <span class="edition-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                            Compatible con PostgreSQL y MySQL
+                        </li>
+                        <li>
+                            <span class="edition-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                            Auto-hospedado en tu infraestructura
+                        </li>
+                        <li>
+                            <span class="edition-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                            Sincronizacion en tiempo real via WebSocket
+                        </li>
+                        <li>
+                            <span class="edition-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                            API REST documentada
+                        </li>
+                        <li>
+                            <span class="edition-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                            Sistema de permisos y roles
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Caracteristicas Tecnicas -->
+    <section class="section section-alt" id="tech">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="label">Tecnologia</span>
+                <h2>Construido con tecnologias modernas</h2>
+                <p>
+                    Una arquitectura robusta y extensible respaldada por una comunidad
+                    de codigo abierto activa y en crecimiento.
+                </p>
+            </div>
+            <div class="tech-grid">
+                <div class="tech-card reveal">
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <h3>Codigo Abierto</h3>
+                    <p>Licencia libre que garantiza transparencia total. Inspecciona, modifica y contribuye al codigo fuente en GitHub.</p>
+                </div>
+                <div class="tech-card reveal">
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    </div>
+                    <h3>Multilingue</h3>
+                    <p>Soporte nativo para multiples idiomas. La interfaz se adapta al idioma de cada usuario con archivos de localizacion i18n.</p>
+                </div>
+                <div class="tech-card reveal">
+                    <div class="tech-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                    </div>
+                    <h3>Auto-hospedado</h3>
+                    <p>Despliega en tu propia infraestructura y mantiene el control total de tus datos. Compatible con Docker, Ubuntu y mas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+ 
+    <!-- Footer -->
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h3>Focalboard</h3>
+                    <p>
+                        Herramienta de gestion de proyectos de codigo abierto, multilingue
+                        y auto-hospedada. Alternativa a Trello, Notion y Asana.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Producto</h4>
+                    <ul>
+                        <li><a href="#features">Caracteristicas</a></li>
+                        <li><a href="#templates">Plantillas</a></li>
+                        <li><a href="#editions">Ediciones</a></li>
+                        <li><a href="#tech">Tecnologia</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="https://www.focalboard.com/docs/personal-edition/desktop/" target="_blank" rel="noopener">Documentacion</a></li>
+                        <li><a href="https://github.com/MarcoXMarquez/focalboard" target="_blank" rel="noopener">Codigo fuente</a></li>
+                        <li><a href="https://developers.mattermost.com/contribute/focalboard/personal-server-setup-guide" target="_blank" rel="noopener">Guia de desarrollo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Comunidad</h4>
+                    <ul>
+                        <li><a href="https://github.com/MarcoXMarquez/focalboard/issues" target="_blank" rel="noopener">Reportar un error</a></li>
+                        <li><a href="https://github.com/MarcoXMarquez/focalboard/discussions" target="_blank" rel="noopener">Discusiones</a></li>
+                        <li><a href="https://community.mattermost.com/core/channels/focalboard" target="_blank" rel="noopener">Canal de Mattermost</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>Focalboard. Proyecto de codigo abierto.</span>
+                <div class="footer-bottom-links">
+                    <a href="https://github.com/MarcoXMarquez/focalboard" target="_blank" rel="noopener">GitHub</a>
+                    <a href="https://www.focalboard.com" target="_blank" rel="noopener">Sitio oficial</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+ 
+    <script>
+        (function () {
+            'use strict';
+ 
+            // --- Navbar scroll effect ---
+            var navbar = document.getElementById('navbar');
+            var scrollThreshold = 40;
+ 
+            function updateNavbar() {
+                if (window.scrollY > scrollThreshold) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            }
+ 
+            window.addEventListener('scroll', updateNavbar, { passive: true });
+            updateNavbar();
+ 
+            // --- Mobile menu toggle ---
+            var navToggle = document.getElementById('navToggle');
+            var navLinks = document.getElementById('navLinks');
+ 
+            navToggle.addEventListener('click', function () {
+                navLinks.classList.toggle('open');
+                var spans = navToggle.querySelectorAll('span');
+                if (navLinks.classList.contains('open')) {
+                    spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                    spans[1].style.opacity = '0';
+                    spans[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+                } else {
+                    spans[0].style.transform = '';
+                    spans[1].style.opacity = '';
+                    spans[2].style.transform = '';
+                }
+            });
+ 
+            // Close mobile menu on link click
+            var links = navLinks.querySelectorAll('a');
+            links.forEach(function (link) {
+                link.addEventListener('click', function () {
+                    navLinks.classList.remove('open');
+                    var spans = navToggle.querySelectorAll('span');
+                    spans[0].style.transform = '';
+                    spans[1].style.opacity = '';
+                    spans[2].style.transform = '';
+                });
+            });
+ 
+            // --- Smooth scroll for anchor links ---
+            document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+                anchor.addEventListener('click', function (e) {
+                    var targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    var target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        var navHeight = navbar.offsetHeight;
+                        var targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+ 
+            // --- Scroll reveal animations ---
+            var revealElements = document.querySelectorAll('.reveal');
+ 
+            function revealOnScroll() {
+                var windowHeight = window.innerHeight;
+                revealElements.forEach(function (el) {
+                    var elementTop = el.getBoundingClientRect().top;
+                    var revealPoint = 120;
+                    if (elementTop < windowHeight - revealPoint) {
+                        el.classList.add('visible');
+                    }
+                });
+            }
+ 
+            window.addEventListener('scroll', revealOnScroll, { passive: true });
+            revealOnScroll();
+ 
+            // --- Active nav link highlight ---
+            var sections = document.querySelectorAll('section[id]');
+ 
+            function highlightNav() {
+                var scrollPos = window.scrollY + navbar.offsetHeight + 40;
+                sections.forEach(function (section) {
+                    var top = section.offsetTop;
+                    var height = section.offsetHeight;
+                    var id = section.getAttribute('id');
+                    var navLink = document.querySelector('.navbar-links a[href="#' + id + '"]');
+                    if (navLink) {
+                        if (scrollPos >= top && scrollPos < top + height) {
+                            navLink.style.color = 'var(--color-primary)';
+                            navLink.style.fontWeight = '600';
+                        } else {
+                            navLink.style.color = '';
+                            navLink.style.fontWeight = '';
+                        }
+                    }
+                });
+            }
+ 
+            window.addEventListener('scroll', highlightNav, { passive: true });
+            highlightNav();
+ 
+            // --- Interactive card hover tilt ---
+            var featureCards = document.querySelectorAll('.feature-card');
+ 
+            featureCards.forEach(function (card) {
+                card.addEventListener('mousemove', function (e) {
+                    var rect = card.getBoundingClientRect();
+                    var x = e.clientX - rect.left;
+                    var y = e.clientY - rect.top;
+                    var centerX = rect.width / 2;
+                    var centerY = rect.height / 2;
+                    var rotateX = (y - centerY) / centerY * -3;
+                    var rotateY = (x - centerX) / centerX * 3;
+                    card.style.transform = 'translateY(-6px) perspective(600px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+                });
+ 
+                card.addEventListener('mouseleave', function () {
+                    card.style.transform = '';
+                });
+            });
+        })();
+    </script>
+ 
 </body>
 </html>
